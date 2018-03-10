@@ -18,7 +18,9 @@ public partial class Form1 : Form {
 	}
 
 	public void UpdateText(string txt) {
-		l.Text = txt;
+		if (this.InvokeRequired) {
+			this.BeginInvoke((Action) (() => {l.Text = txt;}));
+		}
 	}
 
 	private void ChangeForeColor(object sender, EventArgs e) {
