@@ -28,17 +28,32 @@ partial class osurtdd {
 	static void persistence_init() {
 		form.OnBackColorChangedA += persistence_OnBackColorChanged;
 		form.OnForeColorChangedA += persistence_OnForeColorChanged;
+		form.OnSizeChangedA += persistence_OnSizeChanged;
 
 		StringBuilder sb = new StringBuilder();
 		int i;
-		GetPrivateProfileString("color", "fore", "", sb, 20, settingsfile);
-		if (int.TryParse(sb.ToString(), out i)) {
+		if (int.TryParse(persistence_i("color", "fore", sb), out i)) {
 			form.SetForeColor(Color.FromArgb(i));
 		}
-		GetPrivateProfileString("color", "back", "", sb, 20, settingsfile);
-		if (int.TryParse(sb.ToString(), out i)) {
+		if (int.TryParse(persistence_i("color", "back", sb), out i)) {
 			form.SetBackColor(Color.FromArgb(i));
 		}
+		if (int.TryParse(persistence_i("size", "width", sb), out i)) {
+			form.Size = new Size(i, form.Size.Height);
+		}
+		if (int.TryParse(persistence_i("size", "height", sb), out i)) {
+			form.Size = new Size(form.Size.Width, i);
+		}
+	}
+
+	static string persistence_i(string section, string key, StringBuilder sb) {
+		GetPrivateProfileString(section, key, "", sb, 20, settingsfile);
+		return sb.ToString();
+	}
+
+	static void persistence_OnSizeChanged(int w, int h) {
+		WritePrivateProfileString("size", "width", w.ToString().ToString(), settingsfile);
+		WritePrivateProfileString("size", "height", h.ToString().ToString(), settingsfile);
 	}
 
 	static void persistence_OnForeColorChanged(Color col) {

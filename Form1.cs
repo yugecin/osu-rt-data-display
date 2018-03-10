@@ -7,9 +7,11 @@ public partial class Form1 : Form {
 
 	public delegate void OnForeColorChangedEvent(Color col);
 	public delegate void OnBackColorChangedEvent(Color col);
+	public delegate void OnSizeChangedEvent(int w, int h);
 
 	public event OnForeColorChangedEvent OnForeColorChangedA;
 	public event OnBackColorChangedEvent OnBackColorChangedA;
+	public event OnSizeChangedEvent OnSizeChangedA;
 
 	public Form1() {
 		InitializeComponent();
@@ -29,6 +31,10 @@ public partial class Form1 : Form {
 		if (colorDialog.ShowDialog() == DialogResult.OK) {
 			OnBackColorChangedA(l.BackColor = colorDialog.Color);
 		}
+	}
+
+	private void SizeChangedA(object sender, EventArgs e) {
+		OnSizeChangedA(Size.Width, Size.Height);
 	}
 
 	public void SetForeColor(Color c) {

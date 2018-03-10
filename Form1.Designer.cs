@@ -83,6 +83,7 @@ namespace osurtdd {
 			this.Controls.Add(this.l);
 			this.Name = "Form1";
 			this.Text = "osu-rt-data-display";
+			this.SizeChanged += new System.EventHandler(this.SizeChangedA);
 			this.c.ResumeLayout(false);
 			this.ResumeLayout(false);
 
