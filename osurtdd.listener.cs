@@ -21,6 +21,7 @@ partial class osurtdd {
 		lm.OnAccuracyChanged += listener_OnAccuracyChanged;
 		lm.OnPlayingTimeChanged += listener_OnPlayingTimeChanged;
 		lm.OnBeatmapChanged += listener_OnBeatmapChanged;
+		lm.OnPlayModeChanged += listener_OnPlayModeChanged;
 		lm.Start();
 	}
 
@@ -67,6 +68,10 @@ partial class osurtdd {
 
 	static void listener_OnPlayingTimeChanged(int ms) {
 		datatime = ms;
+		form.UpdateText(format_data());
+	}
+
+	static void listener_OnPlayModeChanged(OsuPlayMode last, OsuPlayMode mode) {
 		form.UpdateText(format_data());
 	}
 
