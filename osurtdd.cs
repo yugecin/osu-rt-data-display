@@ -7,13 +7,14 @@ partial class osurtdd {
 
 	static Form1 form;
 	static string rawformat, parsedformat;
-	static int data300, data100, data50, datacombo, datatime;
+	static int data300, datageki, data100, datakatu, data50, datamiss, datacombo, datatime;
 	static double dataacc;
 
 	[STAThread]
 	static void Main() {
 		form = new Form1();
-		rawformat = "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} {_ACC_}% {_COMBO_}x";
+		rawformat = "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} MISSx{_MISSCOUNT_} "
+			+ "{_ACC_}% {_COMBO_}x";
 		format_parse();
 		listener_init();
 		persistence_init();
@@ -24,7 +25,8 @@ partial class osurtdd {
 	static void format_parse() {
 		parsedformat = rawformat;
 		string[] mapping = {
-			"_300COUNT_", "_100COUNT_", "_50COUNT_", "_COMBO_", "_ACC_", "_SONGTIME_"
+			"_300COUNT_", "_GEKICOUNT_", "_100COUNT_", "_KATUCOUNT_", "_50COUNT_",
+			"_MISSCOUNT_", "_COMBO_", "_ACC_", "_SONGTIME_"
 		};
 		for (int i = 0; i < mapping.Length; i++) {
 			parsedformat = parsedformat.Replace(mapping[i], i.ToString());
@@ -33,7 +35,8 @@ partial class osurtdd {
 
 	static string format_data() {
 		return string.Format(
-			parsedformat, data300, data100, data50, datacombo, dataacc, datatime
+			parsedformat, data300, datageki, data100, datakatu, data50, datamiss,
+			datacombo, dataacc, datatime
 		);
 	}
 

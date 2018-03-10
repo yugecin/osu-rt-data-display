@@ -10,13 +10,28 @@ partial class osurtdd {
 		p.OnEnable();
 		OsuListenerManager lm = p.ListenerManager;
 		lm.OnStatusChanged += listener_OnStatusChanged;
-		lm.OnCount100Changed += listener_OnCount100Changed;
 		lm.OnCount300Changed += listener_OnCount300Changed;
+		lm.OnCountGekiChanged += listener_OnCountGekiChanged;
+		lm.OnCount100Changed += listener_OnCount100Changed;
+		lm.OnCountKatuChanged += listener_OnCountKatuChanged;
 		lm.OnCount50Changed += listener_OnCount50Changed;
+		lm.OnCountMissChanged += listener_OnCountMissChanged;
 		lm.OnComboChanged += listener_OnComboChanged;
 		lm.OnAccuracyChanged += listener_OnAccuracyChanged;
 		lm.OnPlayingTimeChanged += listener_OnPlayingTimeChanged;
 		lm.Start();
+	}
+
+	static void listener_OnCountMissChanged(int hit) {
+		datamiss = hit;
+	}
+
+	static void listener_OnCountKatuChanged(int hit) {
+		datakatu = hit;
+	}
+
+	static void listener_OnCountGekiChanged(int hit) {
+		datageki = hit;
 	}
 
 	static void listener_OnAccuracyChanged(double acc) {
