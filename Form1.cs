@@ -8,5 +8,10 @@ public partial class Form1 : Form {
 		InitializeComponent();
 	}
 
+	public void UpdateText(string txt) {
+		l.Text = txt;
+	}
+
 }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////

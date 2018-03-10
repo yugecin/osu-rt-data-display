@@ -1,32 +1,41 @@
-using OsuRTDataProvider;
-using OsuRTDataProvider.Listen;
 using System;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace osurtdd {
-class osurtdd {
+partial class osurtdd {
+
+	static Form1 form;
+	static string rawformat, parsedformat;
+	static int data300, data100, data50, datacombo, datatime;
+	static double dataacc;
 
 	[STAThread]
 	static void Main() {
-		OsuRTDataProviderPlugin p = new OsuRTDataProviderPlugin();
-		p.OnEnable();
-		p.ListenerManager.OnStatusChanged += RTDP_OnStatusChanged;
-		p.ListenerManager.OnPlayingTimeChanged += RTDP_OnPlayingTimeChanged;
-		p.ListenerManager.Start();
-		Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NoneEnabled;
-		Application.Run(new Form1());
+		rawformat = "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} {_ACC_}% {_COMBO_}x";
+		format_parse();
+		listener_init();
+		form = new Form1();
+		Application.VisualStyleState = VisualStyleState.NoneEnabled;
+		Application.Run(form);
 	}
 
-	static void RTDP_OnPlayingTimeChanged(int ms) {
-		Console.WriteLine("time {0}", ms);
+	static void format_parse() {
+		parsedformat = rawformat;
+		string[] mapping = {
+			"_300COUNT_", "_100COUNT_", "_50COUNT_", "_COMBO_", "_ACC_", "_SONGTIME_"
+		};
+		for (int i = 0; i < mapping.Length; i++) {
+			parsedformat = parsedformat.Replace(mapping[i], i.ToString());
+		}
 	}
 
-	static void RTDP_OnStatusChanged(
-		OsuListenerManager.OsuStatus from,
-		OsuListenerManager.OsuStatus to)
-	{
-		Console.WriteLine("status {0} to {1}", from, to);
+	static string format_data() {
+		return string.Format(
+			parsedformat, data300, data100, data50, datacombo, dataacc, datatime
+		);
 	}
 
 }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
