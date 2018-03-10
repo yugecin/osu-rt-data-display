@@ -15,13 +15,12 @@ partial class osurtdd {
 	[STAThread]
 	static void Main() {
 		form = new Form1();
-		update_raw_format(
-			"{_BMARTIST_} - {_BMTITLE_} [{_BMDIFF_}] by {_BMCREATOR_}\\n"
+		rawformat = "{_BMARTIST_} - {_BMTITLE_} [{_BMDIFF_}] by {_BMCREATOR_}\\n"
 			+ "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} MISSx{_MISSCOUNT_} "
-			+ "{_ACC_:.00}% {_COMBO_}x"
-		);
+			+ "{_ACC_:.00}% {_COMBO_}x";
 		listener_init();
 		persistence_init();
+		update_raw_format(rawformat);
 		Application.VisualStyleState = VisualStyleState.NoneEnabled;
 		Application.Run(form);
 	}
@@ -47,6 +46,7 @@ partial class osurtdd {
 
 	public
 	static void update_raw_format(string format) {
+		persistence_saveformat(format);
 		parsedformat = format_parse(rawformat = format);
 		update_display();
 	}
