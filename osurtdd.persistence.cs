@@ -26,10 +26,6 @@ partial class osurtdd {
 	);
 
 	static void persistence_init() {
-		form.OnBackColorChangedA += persistence_OnBackColorChanged;
-		form.OnForeColorChangedA += persistence_OnForeColorChanged;
-		form.OnSizeChangedA += persistence_OnSizeChanged;
-
 		StringBuilder sb = new StringBuilder();
 		int i;
 		if (int.TryParse(persistence_i("color", "fore", sb), out i)) {
@@ -51,15 +47,18 @@ partial class osurtdd {
 		return sb.ToString();
 	}
 
+	public
 	static void persistence_OnSizeChanged(int w, int h) {
 		WritePrivateProfileString("size", "width", w.ToString().ToString(), settingsfile);
 		WritePrivateProfileString("size", "height", h.ToString().ToString(), settingsfile);
 	}
 
+	public
 	static void persistence_OnForeColorChanged(Color col) {
 		WritePrivateProfileString("color", "fore", col.ToArgb().ToString(), settingsfile);
 	}
 
+	public
 	static void persistence_OnBackColorChanged(Color col) {
 		WritePrivateProfileString("color", "back", col.ToArgb().ToString(), settingsfile);
 	}
