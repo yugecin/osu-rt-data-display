@@ -26,14 +26,16 @@ namespace osurtdd {
 			this.components = new System.ComponentModel.Container();
 			this.l = new System.Windows.Forms.Label();
 			this.c = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.d = new System.Windows.Forms.ToolStripMenuItem();
 			this.a = new System.Windows.Forms.ToolStripMenuItem();
 			this.b = new System.Windows.Forms.ToolStripMenuItem();
-			this.d = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorDialog = new System.Windows.Forms.ColorDialog();
 			this.c.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// l
 			// 
+			this.l.ContextMenuStrip = this.c;
 			this.l.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.l.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.l.Location = new System.Drawing.Point(0, 0);
@@ -46,23 +48,11 @@ namespace osurtdd {
 			// c
 			// 
 			this.c.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.d,
             this.a,
-            this.b,
-            this.d});
+            this.b});
 			this.c.Name = "c";
 			this.c.Size = new System.Drawing.Size(157, 70);
-			// 
-			// a
-			// 
-			this.a.Name = "a";
-			this.a.Size = new System.Drawing.Size(156, 22);
-			this.a.Text = "text color";
-			// 
-			// b
-			// 
-			this.b.Name = "b";
-			this.b.Size = new System.Drawing.Size(156, 22);
-			this.b.Text = "background color";
 			// 
 			// d
 			// 
@@ -70,11 +60,26 @@ namespace osurtdd {
 			this.d.Size = new System.Drawing.Size(156, 22);
 			this.d.Text = "text format";
 			// 
+			// a
+			// 
+			this.a.Name = "a";
+			this.a.Size = new System.Drawing.Size(156, 22);
+			this.a.Text = "text color";
+			this.a.Click += new System.EventHandler(this.ChangeForeColor);
+			// 
+			// b
+			// 
+			this.b.Name = "b";
+			this.b.Size = new System.Drawing.Size(156, 22);
+			this.b.Text = "background color";
+			this.b.Click += new System.EventHandler(this.ChangeBackColor);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(383, 160);
+			this.ContextMenuStrip = this.c;
 			this.Controls.Add(this.l);
 			this.Name = "Form1";
 			this.Text = "osu-rt-data-display";
@@ -90,5 +95,6 @@ namespace osurtdd {
 		private System.Windows.Forms.ToolStripMenuItem a;
 		private System.Windows.Forms.ToolStripMenuItem b;
 		private System.Windows.Forms.ToolStripMenuItem d;
+		private System.Windows.Forms.ColorDialog colorDialog;
 	}
 }
