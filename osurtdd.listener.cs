@@ -1,4 +1,5 @@
 ﻿using OsuRTDataProvider;
+using OsuRTDataProvider.BeatmapInfo;
 using OsuRTDataProvider.Listen;
 using System;
 
@@ -19,7 +20,17 @@ partial class osurtdd {
 		lm.OnComboChanged += listener_OnComboChanged;
 		lm.OnAccuracyChanged += listener_OnAccuracyChanged;
 		lm.OnPlayingTimeChanged += listener_OnPlayingTimeChanged;
+		lm.OnBeatmapChanged += listener_OnBeatmapChanged;
 		lm.Start();
+	}
+
+	static void listener_OnBeatmapChanged(Beatmap map) {
+		databmtitle = map.Title;
+		databmtitleunicode = map.TitleUnicode;
+		databmartist = map.Artist;
+		databmartistunicode = map.ArtistUnicode;
+		databmcreator = map.Creator;
+		databmdiff = map.Difficulty;
 	}
 
 	static void listener_OnCountMissChanged(int hit) {
