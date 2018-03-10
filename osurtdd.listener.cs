@@ -74,6 +74,7 @@ partial class osurtdd {
 		OsuListenerManager.OsuStatus from,
 		OsuListenerManager.OsuStatus to)
 	{
+		form.UpdateText(format_data());
 		Console.WriteLine("status changed {0} -> {1}", from, to);
 	}
 
