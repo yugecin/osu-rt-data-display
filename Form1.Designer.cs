@@ -52,13 +52,14 @@ namespace osurtdd {
             this.a,
             this.b});
 			this.c.Name = "c";
-			this.c.Size = new System.Drawing.Size(157, 70);
+			this.c.Size = new System.Drawing.Size(157, 92);
 			// 
 			// d
 			// 
 			this.d.Name = "d";
 			this.d.Size = new System.Drawing.Size(156, 22);
 			this.d.Text = "text format";
+			this.d.Click += new System.EventHandler(this.d_Click);
 			// 
 			// a
 			// 

@@ -68,18 +68,18 @@ partial class osurtdd {
 
 	static void listener_OnPlayingTimeChanged(int ms) {
 		datatime = ms;
-		form.UpdateText(format_data());
+		update_display();
 	}
 
 	static void listener_OnPlayModeChanged(OsuPlayMode last, OsuPlayMode mode) {
-		form.UpdateText(format_data());
+		update_display();
 	}
 
 	static void listener_OnStatusChanged(
 		OsuListenerManager.OsuStatus from,
 		OsuListenerManager.OsuStatus to)
 	{
-		form.UpdateText(format_data());
+		update_display();
 		Console.WriteLine("status changed {0} -> {1}", from, to);
 	}
 

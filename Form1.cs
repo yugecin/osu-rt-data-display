@@ -18,9 +18,12 @@ public partial class Form1 : Form {
 	}
 
 	public void UpdateText(string txt) {
+		Action a = (Action) (() => {l.Text = txt;});
 		if (this.InvokeRequired) {
-			this.BeginInvoke((Action) (() => {l.Text = txt;}));
+			this.BeginInvoke(a);
+			return;
 		}
+		a();
 	}
 
 	private void ChangeForeColor(object sender, EventArgs e) {
@@ -45,6 +48,10 @@ public partial class Form1 : Form {
 
 	public void SetBackColor(Color c) {
 		l.BackColor = c;
+	}
+
+	private void d_Click(object sender, EventArgs e) {
+		new Form2().ShowDialog();
 	}
 
 }
