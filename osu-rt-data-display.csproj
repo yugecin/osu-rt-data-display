@@ -66,6 +66,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="osurtdd.cs" />
+    <Compile Include="osurtdd.persistence.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="osurtdd.listener.cs" />

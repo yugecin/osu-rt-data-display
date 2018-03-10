@@ -5,6 +5,12 @@ using System.Windows.Forms;
 namespace osurtdd {
 public partial class Form1 : Form {
 
+	public delegate void OnForeColorChangedEvent(Color col);
+	public delegate void OnBackColorChangedEvent(Color col);
+
+	public event OnForeColorChangedEvent OnForeColorChangedA;
+	public event OnBackColorChangedEvent OnBackColorChangedA;
+
 	public Form1() {
 		InitializeComponent();
 	}
@@ -15,14 +21,22 @@ public partial class Form1 : Form {
 
 	private void ChangeForeColor(object sender, EventArgs e) {
 		if (colorDialog.ShowDialog() == DialogResult.OK) {
-			l.ForeColor = colorDialog.Color;
+			OnForeColorChangedA(l.ForeColor = colorDialog.Color);
 		}
 	}
 
 	private void ChangeBackColor(object sender, EventArgs e) {
 		if (colorDialog.ShowDialog() == DialogResult.OK) {
-			l.BackColor = colorDialog.Color;
+			OnBackColorChangedA(l.BackColor = colorDialog.Color);
 		}
+	}
+
+	public void SetForeColor(Color c) {
+		l.ForeColor = c;
+	}
+
+	public void SetBackColor(Color c) {
+		l.BackColor = c;
 	}
 
 }

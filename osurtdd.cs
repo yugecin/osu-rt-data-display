@@ -12,10 +12,11 @@ partial class osurtdd {
 
 	[STAThread]
 	static void Main() {
+		form = new Form1();
 		rawformat = "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} {_ACC_}% {_COMBO_}x";
 		format_parse();
 		listener_init();
-		form = new Form1();
+		persistence_init();
 		Application.VisualStyleState = VisualStyleState.NoneEnabled;
 		Application.Run(form);
 	}
