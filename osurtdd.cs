@@ -17,7 +17,7 @@ partial class osurtdd {
 		form = new Form1();
 		rawformat = "{_BMARTIST_} - {_BMTITLE_} [{_BMDIFF_}] by {_BMCREATOR_}\\n"
 			+ "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} MISSx{_MISSCOUNT_} "
-			+ "{_ACC_}% {_COMBO_}x";
+			+ "{_ACC_:.00}% {_COMBO_}x";
 		format_parse();
 		listener_init();
 		persistence_init();
