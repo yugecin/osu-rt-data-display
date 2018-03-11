@@ -45,39 +45,47 @@ partial class osurtdd {
 
 	static void listener_OnCountMissChanged(int hit) {
 		datamiss = hit;
+		update_display();
 	}
 
 	static void listener_OnCountKatuChanged(int hit) {
 		datakatu = hit;
+		update_display();
 	}
 
 	static void listener_OnCountGekiChanged(int hit) {
 		datageki = hit;
+		update_display();
 	}
 
 	static void listener_OnAccuracyChanged(double acc) {
 		export_data(10, BitConverter.GetBytes((float) acc));
 		dataacc = acc;
+		update_display();
 	}
 
 	static void listener_OnComboChanged(int combo) {
 		export_data(12, BitConverter.GetBytes(combo));
 		datacombo = combo;
+		update_display();
 	}
 
 	static void listener_OnCount50Changed(int hit) {
 		export_data(5, BitConverter.GetBytes(hit));
 		data50 = hit;
+		update_display();
 	}
 
 	static void listener_OnCount300Changed(int hit) {
 		export_data(3, BitConverter.GetBytes(hit));
 		data300 = hit;
+		update_display();
 	}
 
 	static void listener_OnCount100Changed(int hit) {
 		export_data(1, BitConverter.GetBytes(hit));
 		data100 = hit;
+		update_display();
 	}
 
 	static void listener_OnPlayingTimeChanged(int ms) {
