@@ -29,9 +29,12 @@ namespace osurtdd {
 			this.d = new System.Windows.Forms.ToolStripMenuItem();
 			this.a = new System.Windows.Forms.ToolStripMenuItem();
 			this.b = new System.Windows.Forms.ToolStripMenuItem();
+			this.e = new System.Windows.Forms.ToolStripMenuItem();
 			this.colorDialog = new System.Windows.Forms.ColorDialog();
 			this.fontDialog = new System.Windows.Forms.FontDialog();
-			this.e = new System.Windows.Forms.ToolStripMenuItem();
+			this.f = new System.Windows.Forms.ToolStripMenuItem();
+			this.exportfilename = new System.Windows.Forms.ToolStripTextBox();
+			this.enableexport = new System.Windows.Forms.ToolStripMenuItem();
 			this.c.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -53,9 +56,10 @@ namespace osurtdd {
             this.d,
             this.a,
             this.b,
-            this.e});
+            this.e,
+            this.f});
 			this.c.Name = "c";
-			this.c.Size = new System.Drawing.Size(157, 92);
+			this.c.Size = new System.Drawing.Size(157, 136);
 			// 
 			// d
 			// 
@@ -78,17 +82,39 @@ namespace osurtdd {
 			this.b.Text = "background color";
 			this.b.Click += new System.EventHandler(this.ChangeBackColor);
 			// 
-			// fontDialog
-			// 
-			this.fontDialog.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-			this.fontDialog.FontMustExist = true;
-			// 
 			// e
 			// 
 			this.e.Name = "e";
 			this.e.Size = new System.Drawing.Size(156, 22);
 			this.e.Text = "text font";
 			this.e.Click += new System.EventHandler(this.ChangeTextFont);
+			// 
+			// fontDialog
+			// 
+			this.fontDialog.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
+			this.fontDialog.FontMustExist = true;
+			// 
+			// f
+			// 
+			this.f.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportfilename,
+            this.enableexport});
+			this.f.Name = "f";
+			this.f.Size = new System.Drawing.Size(156, 22);
+			this.f.Text = "export next play";
+			// 
+			// exportfilename
+			// 
+			this.exportfilename.Name = "exportfilename";
+			this.exportfilename.Size = new System.Drawing.Size(100, 21);
+			this.exportfilename.Text = "filename";
+			// 
+			// enableexport
+			// 
+			this.enableexport.Name = "enableexport";
+			this.enableexport.Size = new System.Drawing.Size(160, 22);
+			this.enableexport.Text = "enable";
+			this.enableexport.Click += new System.EventHandler(this.EnableExport);
 			// 
 			// Form1
 			// 
@@ -115,5 +141,8 @@ namespace osurtdd {
 		private System.Windows.Forms.ColorDialog colorDialog;
 		private System.Windows.Forms.FontDialog fontDialog;
 		private System.Windows.Forms.ToolStripMenuItem e;
+		private System.Windows.Forms.ToolStripMenuItem f;
+		private System.Windows.Forms.ToolStripTextBox exportfilename;
+		private System.Windows.Forms.ToolStripMenuItem enableexport;
 	}
 }

@@ -2,14 +2,22 @@
 using OsuRTDataProvider.BeatmapInfo;
 using OsuRTDataProvider.Listen;
 using System;
+using System.IO;
 
 namespace osurtdd {
 partial class osurtdd {
 
+	static BinaryWriter exporter;
+	public
+	static string exportfile = "export";
+	public
+	static bool exportnext;
+	static OsuListenerManager lm;
+
 	static void listener_init() {
 		OsuRTDataProviderPlugin p = new OsuRTDataProviderPlugin();
 		p.OnEnable();
-		OsuListenerManager lm = p.ListenerManager;
+		lm = p.ListenerManager;
 		lm.OnStatusChanged += listener_OnStatusChanged;
 		lm.OnCount300Changed += listener_OnCount300Changed;
 		lm.OnCountGekiChanged += listener_OnCountGekiChanged;
@@ -48,22 +56,27 @@ partial class osurtdd {
 	}
 
 	static void listener_OnAccuracyChanged(double acc) {
+		export_data(10, BitConverter.GetBytes((float) acc));
 		dataacc = acc;
 	}
 
 	static void listener_OnComboChanged(int combo) {
+		export_data(12, BitConverter.GetBytes(combo));
 		datacombo = combo;
 	}
 
 	static void listener_OnCount50Changed(int hit) {
+		export_data(5, BitConverter.GetBytes(hit));
 		data50 = hit;
 	}
 
 	static void listener_OnCount300Changed(int hit) {
+		export_data(3, BitConverter.GetBytes(hit));
 		data300 = hit;
 	}
 
 	static void listener_OnCount100Changed(int hit) {
+		export_data(1, BitConverter.GetBytes(hit));
 		data100 = hit;
 	}
 
@@ -75,11 +88,31 @@ partial class osurtdd {
 		update_display();
 	}
 
+	static void export_data(byte type, byte[] data) {
+		if (exporter == null) {
+			return;
+		}
+		int time = lm.GetCurrentData(ProvideDataMask.Time).Time;
+		exporter.Write(BitConverter.GetBytes(time));
+		exporter.Write(type);
+		exporter.Write(data);
+	}
+
 	static void listener_OnStatusChanged(
 		OsuListenerManager.OsuStatus from,
 		OsuListenerManager.OsuStatus to)
 	{
 		update_display();
+		if (exporter != null && from == OsuListenerManager.OsuStatus.Playing) {
+			exporter.Close();
+			exporter = null;
+		}
+		if (exportnext && to == OsuListenerManager.OsuStatus.Playing) {
+			exportnext = false;
+			FileStream fs = new FileStream(exportfile + ".ope", FileMode.Create);
+			exporter = new BinaryWriter(fs);
+			form.ResetExport();
+		}
 		Console.WriteLine("status changed {0} -> {1}", from, to);
 	}
 

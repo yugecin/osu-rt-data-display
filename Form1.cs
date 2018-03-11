@@ -56,6 +56,15 @@ public partial class Form1 : Form {
 		}
 	}
 
+	private void EnableExport(object sender, EventArgs e) {
+		osurtdd.exportnext = enableexport.Checked = !enableexport.Checked;
+		osurtdd.exportfile = exportfilename.Text;
+	}
+
+	public void ResetExport() {
+		enableexport.Checked = false;
+	}
+
 }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
