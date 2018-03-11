@@ -67,6 +67,8 @@
 			// 
 			// textbox
 			// 
+			this.textbox.AcceptsReturn = true;
+			this.textbox.AcceptsTab = true;
 			this.textbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textbox.Location = new System.Drawing.Point(16, 122);
