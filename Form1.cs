@@ -9,6 +9,10 @@ public partial class Form1 : Form {
 		InitializeComponent();
 	}
 
+	public void SetFont(Font font) {
+		fontDialog.Font = l.Font = font;
+	}
+
 	public void UpdateText(string txt) {
 		Action a = (Action) (() => {l.Text = txt;});
 		if (this.InvokeRequired) {
@@ -44,6 +48,12 @@ public partial class Form1 : Form {
 
 	private void d_Click(object sender, EventArgs e) {
 		new Form2().ShowDialog();
+	}
+
+	private void ChangeTextFont(object sender, EventArgs e) {
+		if (fontDialog.ShowDialog() == DialogResult.OK) {
+			osurtdd.update_font(l.Font = fontDialog.Font);
+		}
 	}
 
 }

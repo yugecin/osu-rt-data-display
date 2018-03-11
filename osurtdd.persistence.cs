@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 
 namespace osurtdd {
 partial class osurtdd {
@@ -42,6 +43,7 @@ partial class osurtdd {
 			form.Size = new Size(form.Size.Width, i);
 		}
 		persistence_loadformat(sb);
+		persistence_loadfont(sb);
 	}
 
 	static string persistence_i(string section, string key, StringBuilder sb) {
@@ -96,6 +98,34 @@ partial class osurtdd {
 		format = format.Substring(30);
 		i++;
 		goto _1;
+	}
+
+	static void persistence_savefont(Font font) {
+		string size = font.Size.ToString().Replace(',', '.');
+		string f = font.FontFamily.Name + "," + size + ","
+			+ (font.Style == FontStyle.Bold ? "y" : "n");
+		WritePrivateProfileString("font", "font", f, settingsfile);
+	}
+
+	static void persistence_loadfont(StringBuilder sb) {
+		GetPrivateProfileString("font", "font", "", sb, 35, settingsfile);
+		if (sb.Length > 0) {
+			try {
+				string[] parts = sb.ToString().Split(',');
+				if (parts.Length != 3) {
+					return;
+				}
+				var style = parts[2] == "y" ? FontStyle.Bold : FontStyle.Regular;
+				string size = parts[1].Replace(
+					".",
+					Thread.CurrentThread.CurrentCulture.NumberFormat
+						.NumberDecimalSeparator
+				);
+				currentfont = new Font(parts[0], float.Parse(size), style);
+			} catch (Exception t) {
+				Console.WriteLine("could not load font: {0}", t.Message);
+			}
+		}
 	}
 
 }

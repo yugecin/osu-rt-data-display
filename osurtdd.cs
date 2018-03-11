@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -6,6 +7,7 @@ namespace osurtdd {
 partial class osurtdd {
 
 	static Form1 form;
+	static Font currentfont;
 	static string rawformat, parsedformat;
 	static int data300, datageki, data100, datakatu, data50, datamiss, datacombo, datatime;
 	static string databmtitle, databmtitleunicode, databmartist, databmartistunicode;
@@ -15,12 +17,14 @@ partial class osurtdd {
 	[STAThread]
 	static void Main() {
 		form = new Form1();
+		currentfont = new Font("Tahoma", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
 		rawformat = "{_BMARTIST_} - {_BMTITLE_} [{_BMDIFF_}] by {_BMCREATOR_}\\n"
 			+ "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} MISSx{_MISSCOUNT_} "
 			+ "{_ACC_:F2}% {_COMBO_}x";
 		listener_init();
 		persistence_init();
 		update_raw_format(rawformat);
+		form.SetFont(currentfont);
 		Application.VisualStyleState = VisualStyleState.NoneEnabled;
 		Application.Run(form);
 	}
@@ -37,6 +41,17 @@ partial class osurtdd {
 			parsedformat = parsedformat.Replace(mapping[i], i.ToString());
 		}
 		return parsedformat;
+	}
+
+	public
+	static void update_font(Font font) {
+		currentfont = font;
+		persistence_savefont(font);
+	}
+
+	public
+	static Font get_font() {
+		return currentfont;
 	}
 
 	public

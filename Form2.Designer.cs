@@ -87,7 +87,6 @@
 			this.label1.Padding = new System.Windows.Forms.Padding(5);
 			this.label1.Size = new System.Drawing.Size(563, 224);
 			this.label1.TabIndex = 4;
-			this.label1.Text = resources.GetString("label1.Text");
 			// 
 			// Form2
 			// 
