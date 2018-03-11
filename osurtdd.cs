@@ -7,7 +7,9 @@ namespace osurtdd {
 partial class osurtdd {
 
 	static Form1 form;
+	public
 	static Font currentfont;
+	public
 	static string rawformat, parsedformat;
 	static int data300, datageki, data100, datakatu, data50, datamiss, datacombo, datatime;
 	static string databmtitle, databmtitleunicode, databmartist, databmartistunicode;
@@ -47,16 +49,6 @@ partial class osurtdd {
 	static void update_font(Font font) {
 		currentfont = font;
 		persistence_savefont(font);
-	}
-
-	public
-	static Font get_font() {
-		return currentfont;
-	}
-
-	public
-	static string get_raw_format() {
-		return rawformat;
 	}
 
 	public

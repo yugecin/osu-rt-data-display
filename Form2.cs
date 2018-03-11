@@ -6,9 +6,9 @@ namespace osurtdd {
 
 		public Form2() {
 			InitializeComponent();
-			textbox.Text = osurtdd.get_raw_format();
+			textbox.Text = osurtdd.rawformat;
 			textbox_TextChanged(null, null);
-			label.Font = osurtdd.get_font();
+			label.Font = osurtdd.currentfont;
 		}
 
 		private void textbox_TextChanged(object sender, EventArgs e) {
