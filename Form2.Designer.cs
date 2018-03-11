@@ -23,12 +23,11 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
 			this.label = new System.Windows.Forms.Label();
 			this.cancel = new System.Windows.Forms.Button();
 			this.save = new System.Windows.Forms.Button();
 			this.textbox = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.formathelp = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label
@@ -77,16 +76,16 @@
 			this.textbox.TabIndex = 3;
 			this.textbox.TextChanged += new System.EventHandler(this.textbox_TextChanged);
 			// 
-			// label1
+			// formathelp
 			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.formathelp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label1.Location = new System.Drawing.Point(13, 203);
-			this.label1.Name = "label1";
-			this.label1.Padding = new System.Windows.Forms.Padding(5);
-			this.label1.Size = new System.Drawing.Size(563, 224);
-			this.label1.TabIndex = 4;
+			this.formathelp.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.formathelp.Location = new System.Drawing.Point(9, 203);
+			this.formathelp.Name = "formathelp";
+			this.formathelp.Padding = new System.Windows.Forms.Padding(5);
+			this.formathelp.Size = new System.Drawing.Size(563, 224);
+			this.formathelp.TabIndex = 4;
 			// 
 			// Form2
 			// 
@@ -95,7 +94,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cancel;
 			this.ClientSize = new System.Drawing.Size(584, 465);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.formathelp);
 			this.Controls.Add(this.textbox);
 			this.Controls.Add(this.save);
 			this.Controls.Add(this.cancel);
@@ -113,6 +112,6 @@
 		private System.Windows.Forms.Button cancel;
 		private System.Windows.Forms.Button save;
 		private System.Windows.Forms.TextBox textbox;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label formathelp;
 	}
 }
