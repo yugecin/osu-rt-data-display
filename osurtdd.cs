@@ -19,10 +19,6 @@ partial class osurtdd {
 	[STAThread]
 	static void Main() {
 		form = new Form1();
-		currentfont = new Font("Tahoma", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
-		rawformat = "{_BMARTIST_} - {_BMTITLE_} [{_BMDIFF_}] by {_BMCREATOR_}\\n"
-			+ "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} MISSx{_MISSCOUNT_} "
-			+ "{_ACC_:F2}% {_COMBO_}x";
 		listener_init();
 		persistence_init();
 		update_raw_format(rawformat);

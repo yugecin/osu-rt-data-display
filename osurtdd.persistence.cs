@@ -1,130 +1,123 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.InteropServices;
+using System.IO;
 using System.Text;
 using System.Threading;
 
 namespace osurtdd {
 partial class osurtdd {
 
-	const string settingsfile = "./osu-rt-data-display.ini";
+	const string
+		OPT_SIZE_WIDTH = "width",
+		OPT_SIZE_HEIGHT = "height",
+		OPT_FORECOLOR = "forecolor",
+		OPT_BACKCOLOR = "backcolor",
+		OPT_FONT = "font",
+		OPT_FORMAT = "format",
+		settingsfile = "./osu-rt-data-display.ini";
+	static Dictionary<string, string> settings;
 
-	[DllImport("kernel32")]
-	private static extern long WritePrivateProfileString(
-		string section,
-		string key,
-		string val,
-		string filePath
-	);
+	static void persistence_loadfile() {
+		if (!File.Exists(settingsfile)) {
+			return;
+		}
+		foreach (string line in File.ReadAllLines(settingsfile, Encoding.UTF8)) {
+			int idx = line.IndexOf(':');
+			if (idx > -1 && idx != line.Length - 1) {
+				settings[line.Substring(0, idx)] = line.Substring(idx + 1);	
+			}
+		}
+	}
 
-	[DllImport("kernel32")]
-	private static extern int GetPrivateProfileString(
-		string section,
-		string key,
-		string def,
-		StringBuilder retVal,
-		int size,
-		string filePath
-	);
+	static void persistence_savefile() {
+		string[] lines = new string[settings.Count];
+		int i = 0;
+		foreach (string key in settings.Keys) {
+			lines[i++] = key + ":" + settings[key];
+		}
+		File.WriteAllLines(settingsfile, lines, Encoding.UTF8);
+	}
 
 	static void persistence_init() {
-		StringBuilder sb = new StringBuilder();
+		settings = new Dictionary<string,string>();
+		persistence_setdefaults();
+		persistence_loadfile();
 		int i;
-		if (int.TryParse(persistence_i("color", "fore", sb), out i)) {
+		if (int.TryParse(settings[OPT_FORECOLOR], out i)) {
 			form.SetForeColor(Color.FromArgb(i));
 		}
-		if (int.TryParse(persistence_i("color", "back", sb), out i)) {
+		if (int.TryParse(settings[OPT_BACKCOLOR], out i)) {
 			form.SetBackColor(Color.FromArgb(i));
 		}
-		if (int.TryParse(persistence_i("size", "width", sb), out i)) {
+		if (int.TryParse(settings[OPT_SIZE_WIDTH], out i)) {
 			form.Size = new Size(i, form.Size.Height);
 		}
-		if (int.TryParse(persistence_i("size", "height", sb), out i)) {
+		if (int.TryParse(settings[OPT_SIZE_HEIGHT], out i)) {
 			form.Size = new Size(form.Size.Width, i);
 		}
-		persistence_loadformat(sb);
-		persistence_loadfont(sb);
+		rawformat = settings[OPT_FORMAT];
+		persistence_loadfont();
 	}
 
-	static string persistence_i(string section, string key, StringBuilder sb) {
-		GetPrivateProfileString(section, key, "", sb, 20, settingsfile);
-		return sb.ToString();
+	static void persistence_setdefaults() {
+		settings[OPT_FORECOLOR] = Color.Black.ToArgb().ToString();
+		settings[OPT_BACKCOLOR] =
+			Color.FromKnownColor(KnownColor.Control).ToArgb().ToString();
+		settings[OPT_SIZE_WIDTH] = "391";
+		settings[OPT_SIZE_HEIGHT] = "187";
+		settings[OPT_FORMAT] = "{_BMARTIST_} - {_BMTITLE_} [{_BMDIFF_}] by {_BMCREATOR_}\\n"
+			+ "300x{_300COUNT_} 100x{_100COUNT_} 50x{_50COUNT_} MISSx{_MISSCOUNT_} "
+			+ "{_ACC_:F2}% {_COMBO_}x";
+		settings[OPT_FONT] = "Tahoma,14.25,y";
 	}
+
 	public
 	static void persistence_OnSizeChanged(int w, int h) {
-		WritePrivateProfileString("size", "width", w.ToString().ToString(), settingsfile);
-		WritePrivateProfileString("size", "height", h.ToString().ToString(), settingsfile);
+		settings[OPT_SIZE_WIDTH] = w.ToString();
+		settings[OPT_SIZE_HEIGHT] = h.ToString();
+		persistence_savefile();
 	}
 
 	public
 	static void persistence_OnForeColorChanged(Color col) {
-		WritePrivateProfileString("color", "fore", col.ToArgb().ToString(), settingsfile);
+		settings[OPT_FORECOLOR] = col.ToArgb().ToString();
+		persistence_savefile();
 	}
 
 	public
 	static void persistence_OnBackColorChanged(Color col) {
-		WritePrivateProfileString("color", "back", col.ToArgb().ToString(), settingsfile);
-	}
-
-	static void persistence_loadformat(StringBuilder sb) {
-		StringBuilder format = new StringBuilder();
-		int parts;
-		if (!int.TryParse(persistence_i("format", "format", sb), out parts)) {
-			return;
-		}
-		int i = 0;
-	_1:
-		GetPrivateProfileString("format", "format" + i, "", sb, 35, settingsfile);
-		if (sb.Length == 0 || parts < i) {
-			if (format.Length > 0) {
-				rawformat = format.ToString();
-			}
-			return;
-		}
-		format.Append(sb.ToString());
-		i++;
-		goto _1;
+		settings[OPT_BACKCOLOR] = col.ToArgb().ToString();
+		persistence_savefile();
 	}
 
 	static void persistence_saveformat(string format) {
-		int i = 0;
-	_1:
-		string part = format.Length > 29 ? format.Substring(0, 30) : format;
-		WritePrivateProfileString("format", "format" + i, part, settingsfile);
-		if (format.Length <= 30) {
-			WritePrivateProfileString("format", "format", i.ToString(), settingsfile);
-			return;
-		}
-		format = format.Substring(30);
-		i++;
-		goto _1;
+		settings[OPT_FORMAT] = format;
+		persistence_savefile();
 	}
 
 	static void persistence_savefont(Font font) {
 		string size = font.Size.ToString().Replace(',', '.');
-		string f = font.FontFamily.Name + "," + size + ","
+		settings[OPT_FONT] = font.FontFamily.Name + "," + size + ","
 			+ (font.Style == FontStyle.Bold ? "y" : "n");
-		WritePrivateProfileString("font", "font", f, settingsfile);
+		persistence_savefile();
 	}
 
-	static void persistence_loadfont(StringBuilder sb) {
-		GetPrivateProfileString("font", "font", "", sb, 35, settingsfile);
-		if (sb.Length > 0) {
-			try {
-				string[] parts = sb.ToString().Split(',');
-				if (parts.Length != 3) {
-					return;
-				}
-				var style = parts[2] == "y" ? FontStyle.Bold : FontStyle.Regular;
-				string size = parts[1].Replace(
-					".",
-					Thread.CurrentThread.CurrentCulture.NumberFormat
-						.NumberDecimalSeparator
-				);
-				currentfont = new Font(parts[0], float.Parse(size), style);
-			} catch (Exception t) {
-				Console.WriteLine("could not load font: {0}", t.Message);
+	static void persistence_loadfont() {
+		try {
+			string[] parts = settings[OPT_FONT].Split(',');
+			if (parts.Length != 3) {
+				return;
 			}
+			var style = parts[2] == "y" ? FontStyle.Bold : FontStyle.Regular;
+			string size = parts[1].Replace(
+				".",
+				Thread.CurrentThread.CurrentCulture.NumberFormat
+					.NumberDecimalSeparator
+			);
+			currentfont = new Font(parts[0], float.Parse(size), style);
+		} catch (Exception t) {
+			Console.WriteLine("could not load font: {0}", t.Message);
 		}
 	}
 
