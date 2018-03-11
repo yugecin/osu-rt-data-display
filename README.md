@@ -12,7 +12,7 @@ The osu!Sync thing doesn't work for me and I wanted to export dumps of plays. (W
 colors/font/format can be adjusted
 
 ## Download/'installation'/usage
-* See [Releases](https://github.com/yugecin/osu-rt-data-display/releases) to download `osu-rt-data-display.exe`
+* See [Releases](https://github.com/yugecin/osu-rt-data-display/releases/latest/) to download `osu-rt-data-display.exe`
 * Download [OsuRTDataProvider v1.2.3](https://github.com/OsuSync/OsuRTDataProvider-Release/releases/tag/v1.2.3)
 * Copy `Plugins/OsuRTDataProviderRelease.dll` to the same folder as `osu-rt-data-display.exe` and rename it to `OsuRTDataProvider.dll`
 * Download [Sync v2.16.1](https://github.com/OsuSync/Sync/releases/tag/v2.16.1)
