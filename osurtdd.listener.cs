@@ -32,6 +32,7 @@ partial class osurtdd {
 		databmartistunicode = map.ArtistUnicode;
 		databmcreator = map.Creator;
 		databmdiff = map.Difficulty;
+		update_display();
 	}
 
 	static void listener_OnCountMissChanged(int hit) {
@@ -68,7 +69,6 @@ partial class osurtdd {
 
 	static void listener_OnPlayingTimeChanged(int ms) {
 		datatime = ms;
-		update_display();
 	}
 
 	static void listener_OnPlayModeChanged(OsuPlayMode last, OsuPlayMode mode) {
