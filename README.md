@@ -1,12 +1,14 @@
 ## osu-rt-data-display
 Dead simple [citation needed] osu! data display with song info and hit counts, accuracy, combo.
-This program basically just uses the RTDataProvider plugin, without having to use osu!Sync (because what is that program even?).
+
+This program basically just uses the OsuRTDataProvider plugin, without having to use osu!Sync (because what is that program even?).
 
 ## Why
-The osu!Sync thing doesn't work for me and I wanted to export dumps of plays. (What is osu!Sync even? Apparently it used to export/manage beatmaps, now it just 'syncs' live chat or something? It has random plugins that have nothing to do with it? It's too confusing to me, it doesn't appear to do anything useful except having a 'facy' UI (which is subjective, I don't event like it) and crashing when I try to use the RTDataProvider plugin)
+The osu!Sync thing doesn't work for me and I wanted to export dumps of plays. (What is osu!Sync even? Apparently it used to export/manage beatmaps, now it just 'syncs' live chat or something? It has random plugins that have nothing to do with it? It's too confusing to me, it doesn't appear to do anything useful except having a 'facy' UI (which is subjective, I don't event like it) and crashing when I try to use the OsuRTDataProvider plugin)
 
 ## Preview
 ![rtdd](https://user-images.githubusercontent.com/12662260/37252828-9abaf55a-2528-11e8-9a37-72e835156b6d.gif)
+
 colors/font/format can be adjusted
 
 ## Download/'installation'/usage
@@ -24,5 +26,5 @@ colors/font/format can be adjusted
 The OsuRTDataProvider thing is a heavily obfuscated dll that you download from the interwebs, either trust it or not. No guarantees.
 
 ## Powered by
-* [osu!Sync](https://github.com/OsuSync/Sync) ([osu! thread](https://osu.ppy.sh/forum/t/270446/))
+* [osu!Sync](https://github.com/OsuSync/Sync) ([osu! forum thread](https://osu.ppy.sh/forum/t/270446/))
 * [OsuRTDataProvider](https://github.com/OsuSync/OsuRTDataProvider-Release)
