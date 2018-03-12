@@ -11,6 +11,8 @@ The osu!Sync thing doesn't work for me and I wanted to export dumps of plays. (W
 
 colors/font/format can be adjusted
 
+![ddfd](https://user-images.githubusercontent.com/12662260/37307257-9b1d613c-263a-11e8-9968-841e174342c7.png)
+
 ## Download/'installation'/usage
 * See [Releases](https://github.com/yugecin/osu-rt-data-display/releases/latest/) to download `osu-rt-data-display.exe`
 * Download [OsuRTDataProvider v1.2.3](https://github.com/OsuSync/OsuRTDataProvider-Release/releases/tag/v1.2.3)
